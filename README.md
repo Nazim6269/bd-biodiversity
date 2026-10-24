@@ -46,4 +46,4 @@ observed richness reflect real biodiversity versus sampling effort?
 
 ## Author
 
-Your Name, BSc Zoology, University of Chittagong
+Nazim Uddin Patwary, BSc Zoology, University of Chittagong
