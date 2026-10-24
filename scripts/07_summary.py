@@ -1,0 +1,27 @@
+import pandas as pd
+
+raw = pd.read_csv("data/raw_birds_large.csv")
+clean = pd.read_csv("data/clean_birds.csv")
+grid = pd.read_csv("data/grid_richness.csv")
+rare = pd.read_csv("data/rarefied_richness.csv")
+
+print("Raw records:", len(raw))
+print("Raw unique species:", raw["species"].nunique())
+print("Clean records:", len(clean))
+print("Clean unique species:", clean["species"].nunique())
+print("Years covered:", int(clean["year"].min()), "to", int(clean["year"].max()))
+print("Most recorded species:", clean["species"].value_counts().index[0],
+      "(", clean["species"].value_counts().iloc[0], "records )")
+print("Fewest-record years:")
+print(clean["year"].value_counts().sort_values().head(3))
+print()
+print("Grid cells with data:", len(grid))
+print("Cells with fewer than 10 records:", (grid["records"] < 10).sum())
+print("Cells used for rarefaction:", len(rare))
+print()
+print("Top 3 cells by rarefied richness:")
+print(rare.sort_values("rarefied", ascending=False).head(3).round(1))
+ranks = rare[["records", "observed", "rarefied"]].rank()
+print()
+print("Correlation with records, observed:", round(ranks["records"].corr(ranks["observed"]), 2))
+print("Correlation with records, rarefied:", round(ranks["records"].corr(ranks["rarefied"]), 2))
